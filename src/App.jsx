@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Header from "./components/Header";
 import SearchBar from "./components/SearchBar";
 import MapContainer from "./components/MapContainer";
@@ -40,6 +40,10 @@ function App() {
       }));
     setForecast(days);
   };
+
+  useEffect(() => {
+    fetchWeather("Sydney");
+  }, []);
 
   return (
     <>
