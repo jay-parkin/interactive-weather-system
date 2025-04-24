@@ -5,8 +5,8 @@ import Button from "react-bootstrap/Button";
 import InputGroup from "react-bootstrap/InputGroup";
 
 import "../styles/SearchBar.css";
-import searchWeather from "../assets/img/searchWeather.png";
-import magnifyingGlass from "../assets/img/magnifier.png";
+import searchWeather from "../assets/icons/searchWeather.png";
+import magnifyingGlass from "../assets/icons/magnifier.png";
 
 export default function SearchBar({ onSearch }) {
   const [query, setQuery] = useState("");

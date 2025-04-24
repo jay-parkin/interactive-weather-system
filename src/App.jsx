@@ -6,7 +6,7 @@ import ForecastCards from "./components/ForecastCards";
 import Controls from "./components/Controls";
 import "./App.css";
 
-import './utils/defaultIcon';
+import "./utils/defaultIcon";
 
 function App() {
   const [coords, setCoords] = useState([-33.8688, 151.2093]);
@@ -39,7 +39,9 @@ function App() {
         }),
         temp: Math.round(entry.main.temp),
         description: entry.weather[0].main,
+        icon: entry.weather[0].icon,
       }));
+
     setForecast(days);
   };
 
