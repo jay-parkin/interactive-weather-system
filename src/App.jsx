@@ -6,6 +6,8 @@ import ForecastCards from "./components/ForecastCards";
 import Controls from "./components/Controls";
 import "./App.css";
 
+import './utils/defaultIcon';
+
 function App() {
   const [coords, setCoords] = useState([-33.8688, 151.2093]);
   const [weather, setWeather] = useState(null);
