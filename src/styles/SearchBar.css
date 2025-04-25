@@ -65,3 +65,37 @@
   max-height: 60%;
   opacity: 80%;
 }
+
+.autocomplete-wrapper {
+  position: relative;
+  width: 100%; /* match input width */
+}
+
+.autocomplete-dropdown {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  background: white;
+  border: 1px solid #ccc;
+  border-top: none;
+  border-radius: 0 0 4px 4px;
+  z-index: 1000;
+  list-style: none;
+  margin: 0;
+  margin-left: 10px;
+  margin-right: 30px;
+  padding: 0;
+  max-height: 200px;
+  overflow-y: auto;
+}
+
+.autocomplete-dropdown li {
+  padding: 8px 12px;
+  cursor: pointer;
+  font-size: 0.9rem;
+}
+
+.autocomplete-dropdown li:hover {
+  background-color: #f0f0f0;
+}
