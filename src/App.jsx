@@ -53,7 +53,7 @@ function App() {
     <>
       <Header />
       <SearchBar onSearch={fetchWeather} />
-      <Controls onCurrentLocation={() => {}} onLayerToggle={() => {}} />
+      <Controls />
       <MapContainer coords={coords} weather={weather} />
       <ForecastCards forecast={forecast} />
     </>

@@ -7,9 +7,15 @@
 
 .controls button {
   padding: 0.5rem 1rem;
-  background-color: #16a085;
+  background-color: #3498db;
   border: none;
   color: white;
   border-radius: 5px;
   cursor: pointer;
+}
+
+.controls button:disabled {
+  background-color: #ccc;
+  color: #888;
+  cursor: not-allowed;
 }

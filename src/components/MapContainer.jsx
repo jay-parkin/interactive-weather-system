@@ -2,6 +2,8 @@ import { MapContainer, TileLayer, Marker, Popup, useMap } from "react-leaflet";
 import "../styles/MapContainer.css";
 import "leaflet/dist/leaflet.css";
 
+import Controls from "./Controls";
+
 import { useEffect, useRef } from "react";
 
 function ChangeMapView({ coords }) {
@@ -19,9 +21,9 @@ export default function MapComponent({ coords, weather }) {
 
   useEffect(() => {
     if (markerRef.current) {
-      markerRef.current.openPopup(); 
+      markerRef.current.openPopup();
     }
-  }, [coords]); 
+  }, [coords]);
 
   return (
     <div className="map-box">

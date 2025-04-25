@@ -1,10 +1,10 @@
 import "../styles/Controls.css";
 
-export default function Controls({ onCurrentLocation, onLayerToggle }) {
+export default function Controls() {
   return (
     <div className="controls">
-      <button onClick={onLayerToggle}>Layers</button>
-      <button onClick={onCurrentLocation}>Current Location</button>
+      <button disabled>Layers</button>
+      <button>Current Location</button>
     </div>
   );
 }
