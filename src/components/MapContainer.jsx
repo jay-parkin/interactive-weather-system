@@ -24,33 +24,35 @@ export default function MapComponent({ coords, weather }) {
   }, [coords]);
 
   return (
-    <div className="map-section">
-      <div className="map-controls">
-        <button disabled>Layers</button>
-        <button>Current Location</button>
-      </div>
+    <div className="map-container">
+      <div className="map-section">
+        <div className="map-controls">
+          <button disabled>Layers</button>
+          <button>Current Location</button>
+        </div>
 
-      <div className="map-box">
-        <MapContainer
-          center={coords}
-          zoom={8}
-          scrollWheelZoom
-          style={{ height: "400px", width: "100%" }}
-        >
-          <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
-          <ChangeMapView coords={coords} />
-          {coords && (
-            <Marker position={coords} ref={markerRef}>
-              <Popup>
-                <b>{weather?.name}</b>
-                <br />
-                {weather?.weather?.[0]?.description}
-                <br />
-                Temp: {weather?.main?.temp}°C
-              </Popup>
-            </Marker>
-          )}
-        </MapContainer>
+        <div className="map-box">
+          <MapContainer
+            center={coords}
+            zoom={8}
+            scrollWheelZoom
+            style={{ height: "400px", width: "100%" }}
+          >
+            <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
+            <ChangeMapView coords={coords} />
+            {coords && (
+              <Marker position={coords} ref={markerRef}>
+                <Popup>
+                  <b>{weather?.name}</b>
+                  <br />
+                  {weather?.weather?.[0]?.description}
+                  <br />
+                  Temp: {weather?.main?.temp}°C
+                </Popup>
+              </Marker>
+            )}
+          </MapContainer>
+        </div>
       </div>
     </div>
   );

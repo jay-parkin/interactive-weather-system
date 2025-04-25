@@ -12,25 +12,21 @@ function App() {
   const [weather, setWeather] = useState(null);
   const [forecast, setForecast] = useState([]);
 
-  const fetchWeather = async (query) => {
+  const fetchWeatherByCoords = async (lat, lon) => {
     const apiKey = import.meta.env.VITE_WEATHER_API_KEY;
-    const geo = await fetch(
-      `https://api.openweathermap.org/geo/1.0/direct?q=${query}&limit=1&appid=${apiKey}`
-    );
-    const geoData = await geo.json();
-    const { lat, lon } = geoData[0];
-    setCoords([lat, lon]);
 
     const weatherRes = await fetch(
       `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${apiKey}&units=metric`
     );
-    setWeather(await weatherRes.json());
+    const weatherData = await weatherRes.json();
+    setWeather(weatherData);
+    setCoords([lat, lon]);
 
     const forecastRes = await fetch(
       `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${apiKey}&units=metric`
     );
-    const data = await forecastRes.json();
-    const days = data.list
+    const forecastData = await forecastRes.json();
+    const days = forecastData.list
       .filter((_, i) => i % 8 === 0)
       .map((entry) => ({
         date: new Date(entry.dt * 1000).toLocaleDateString("en-AU", {
@@ -40,18 +36,17 @@ function App() {
         description: entry.weather[0].main,
         icon: entry.weather[0].icon,
       }));
-
     setForecast(days);
   };
 
   useEffect(() => {
-    fetchWeather("Sydney");
+    fetchWeatherByCoords(coords[0], coords[1]);
   }, []);
 
   return (
     <>
       <Header />
-      <SearchBar onSearch={fetchWeather} />
+      <SearchBar onCoordsSearch={fetchWeatherByCoords} />
       <MapContainer coords={coords} weather={weather} />
       <ForecastCards forecast={forecast} />
     </>
