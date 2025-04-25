@@ -3,7 +3,6 @@ import Header from "./components/Header";
 import SearchBar from "./components/SearchBar";
 import MapContainer from "./components/MapContainer";
 import ForecastCards from "./components/ForecastCards";
-import Controls from "./components/Controls";
 import "./App.css";
 
 import "./utils/defaultIcon";
@@ -53,7 +52,6 @@ function App() {
     <>
       <Header />
       <SearchBar onSearch={fetchWeather} />
-      <Controls />
       <MapContainer coords={coords} weather={weather} />
       <ForecastCards forecast={forecast} />
     </>

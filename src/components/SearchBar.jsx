@@ -25,11 +25,6 @@ export default function SearchBar({ onSearch }) {
   return (
     <div className="search-panel">
       <div className="search-panel-container">
-        <img
-          className="search-panel-img"
-          src={searchWeather}
-          alt="Weather Img"
-        />
 
         <InputGroup className="input-container-field">
           <Form.Control
