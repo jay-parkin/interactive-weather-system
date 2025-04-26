@@ -61,8 +61,10 @@ const Dashboard = () => {
         coords={coords}
         weather={weather}
         onCurrentLocation={handleUseMyLocation}
+        onMapClick={handleFetchWeather}
         locationDenied={locationDenied}
       />
+
       <ForecastCards forecast={forecast} />
     </>
   );

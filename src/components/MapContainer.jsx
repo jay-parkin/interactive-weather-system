@@ -3,6 +3,7 @@ import "../styles/MapContainer.css";
 import "leaflet/dist/leaflet.css";
 
 import { useEffect, useRef } from "react";
+import MapClickHandler from "./MapClickHandler";
 
 function ChangeMapView({ coords }) {
   const map = useMap();
@@ -19,6 +20,7 @@ export default function MapComponent({
   weather,
   onCurrentLocation,
   locationDenied,
+  onMapClick,
 }) {
   const markerRef = useRef(null);
 
@@ -50,6 +52,7 @@ export default function MapComponent({
           scrollWheelZoom
           style={{ height: "400px", width: "100%" }}
         >
+          <MapClickHandler onMapClick={onMapClick} />
           <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
           <ChangeMapView coords={coords} />
           {coords && (
