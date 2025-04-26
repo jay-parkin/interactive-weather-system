@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
-
+import SearchBar from "../components/SearchBar";
 import FullForecastsCards from "../components/FullForecastsCards";
+import { fetchWeatherByCoords } from "../utils/fetchWeather";
 import "../styles/ForecastPage.css";
 
 export default function Forecast() {
@@ -9,44 +10,29 @@ export default function Forecast() {
   const [weather, setWeather] = useState(null);
   const [locationDenied, setLocationDenied] = useState(false);
 
-  const fetchWeatherByCoords = async (lat, lon) => {
-    const apiKey = import.meta.env.VITE_WEATHER_API_KEY;
-
-    const weatherRes = await fetch(
-      `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${apiKey}&units=metric`
-    );
-    const weatherData = await weatherRes.json();
-    setWeather(weatherData);
-
-    const forecastRes = await fetch(
-      `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${apiKey}&units=metric`
-    );
-    const forecastData = await forecastRes.json();
-
-    const days = forecastData.list
-      .filter((_, i) => i % 8 === 0)
-      .map((entry) => ({
-        date: new Date(entry.dt * 1000).toLocaleDateString("en-AU", {
-          weekday: "long",
-        }),
-        temp: Math.round(entry.main.temp),
-        description: entry.weather[0].description,
-        feels_like: Math.round(entry.main.feels_like),
-        icon: entry.weather[0].icon,
-      }));
-
-    setForecast(days);
+  const handleFetchWeather = async (lat, lon) => {
+    try {
+      const { weatherData, forecastDays } = await fetchWeatherByCoords(
+        lat,
+        lon
+      );
+      setWeather(weatherData);
+      setForecast(forecastDays);
+      setCoords([lat, lon]);
+    } catch (error) {
+      console.error("Failed to fetch weather:", error);
+    }
   };
 
   useEffect(() => {
-    fetchWeatherByCoords(coords[0], coords[1]);
+    handleFetchWeather(coords[0], coords[1]);
   }, []);
 
   const handleUseMyLocation = () => {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(
         (position) => {
-          fetchWeatherByCoords(
+          handleFetchWeather(
             position.coords.latitude,
             position.coords.longitude
           );
@@ -66,13 +52,15 @@ export default function Forecast() {
 
   return (
     <div className="forecast-page">
-      <h1 className="forecast-title">Forecast</h1>
+      <h1 className="forecast-title">5 Day Forecast</h1>
+
+      <SearchBar onCoordsSearch={handleFetchWeather} />
 
       <div className="controls">
         <button onClick={handleUseMyLocation} disabled={locationDenied}>
           Current Location
         </button>
-        <button>Choose Location</button>
+        <button disabled>Choose Location</button>
       </div>
 
       <h2 className="forecast-city">{weather?.name || "Loading..."}</h2>

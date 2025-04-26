@@ -5,6 +5,8 @@ import SearchBar from "../components/SearchBar";
 import MapContainer from "../components/MapContainer";
 import ForecastCards from "../components/ForecastCards";
 
+import { fetchWeatherByCoords } from "../utils/fetchWeather";
+
 import "../utils/defaultIcon";
 
 const Dashboard = () => {
@@ -13,35 +15,22 @@ const Dashboard = () => {
   const [forecast, setForecast] = useState([]);
   const [locationDenied, setLocationDenied] = useState(false);
 
-  const fetchWeatherByCoords = async (lat, lon) => {
-    const apiKey = import.meta.env.VITE_WEATHER_API_KEY;
-
-    const weatherRes = await fetch(
-      `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${apiKey}&units=metric`
-    );
-    const weatherData = await weatherRes.json();
-    setWeather(weatherData);
-    setCoords([lat, lon]);
-
-    const forecastRes = await fetch(
-      `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${apiKey}&units=metric`
-    );
-    const forecastData = await forecastRes.json();
-    const days = forecastData.list
-      .filter((_, i) => i % 8 === 0)
-      .map((entry) => ({
-        date: new Date(entry.dt * 1000).toLocaleDateString("en-AU", {
-          weekday: "short",
-        }),
-        temp: Math.round(entry.main.temp),
-        description: entry.weather[0].main,
-        icon: entry.weather[0].icon,
-      }));
-    setForecast(days);
+  const handleFetchWeather = async (lat, lon) => {
+    try {
+      const { weatherData, forecastDays } = await fetchWeatherByCoords(
+        lat,
+        lon
+      );
+      setWeather(weatherData);
+      setForecast(forecastDays);
+      setCoords([lat, lon]);
+    } catch (error) {
+      console.error("Failed to fetch weather data:", error);
+    }
   };
 
   useEffect(() => {
-    fetchWeatherByCoords(coords[0], coords[1]);
+    handleFetchWeather(coords[0], coords[1]);
   }, []);
 
   const handleUseMyLocation = () => {
@@ -49,7 +38,7 @@ const Dashboard = () => {
       navigator.geolocation.getCurrentPosition(
         (position) => {
           const { latitude, longitude } = position.coords;
-          fetchWeatherByCoords(latitude, longitude);
+          handleFetchWeather(latitude, longitude);
           setLocationDenied(false);
         },
         (error) => {
@@ -66,7 +55,8 @@ const Dashboard = () => {
 
   return (
     <>
-      <SearchBar onCoordsSearch={fetchWeatherByCoords} />
+      <SearchBar onCoordsSearch={handleFetchWeather} />
+
       <MapContainer
         coords={coords}
         weather={weather}

@@ -6,15 +6,17 @@
   padding: 2rem 1rem;
 }
 
-.forecast-card {
+.small-forecast-card {
   background-color: #ffffff;
   border: 1px solid #ccc;
   border-radius: 12px;
-  padding: 0.75rem 1rem;
+  padding: 0.75rem 2rem 0.75rem 1rem;
+
   width: 180px;
   text-align: left;
   display: flex;
   align-items: center;
+  flex-wrap: wrap;
   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
 }
 

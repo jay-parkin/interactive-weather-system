@@ -36,6 +36,12 @@ export default function MapComponent({
           Current Location
         </button>
       </div>
+      <h2 className="forecast-city">
+        {weather?.name ||
+          (coords[0] === -33.8688 && coords[1] === 151.2093
+            ? "Sydney"
+            : "Loading...")}
+      </h2>
 
       <div className="map-box">
         <MapContainer
