@@ -1,0 +1,38 @@
+.forecast-graph-wrapper {
+  width: 100%;
+  margin-bottom: 2rem;
+}
+
+.forecast-card {
+  display: inline-block;
+  vertical-align: top;
+  width: 160px;
+  margin: 0 10px;
+  padding: 1rem;
+  background: #f7f9fc;
+  border-radius: 15px;
+  text-align: center;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+.forecast-icon-large {
+  width: 50px;
+  height: 50px;
+}
+
+.forecast-day {
+  font-weight: bold;
+  margin: 0.5rem 0;
+}
+
+.forecast-temp-range {
+  font-size: 1.2rem;
+  font-weight: 600;
+}
+
+.forecast-details {
+  font-size: 0.85rem;
+  color: #666;
+  margin-top: 1rem;
+  text-align: left;
+}

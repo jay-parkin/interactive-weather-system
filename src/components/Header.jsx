@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+
 import "../styles/Header.css";
 
 export default function Header() {
@@ -5,10 +7,10 @@ export default function Header() {
     <header className="header-container">
       <h1 className="logo">Weather Map</h1>
       <nav className="nav-links">
-        <a href="#">Dashboard</a>
-        <a href="#">Forecast</a>
-        <a href="#">Maps</a>
-        <a href="#">About</a>
+        <Link to="/">Dashboard</Link>
+        <Link to="/forecast">Forecast</Link>
+        <Link to="#">Maps</Link>
+        <Link to="#">About</Link>
       </nav>
       <div className="controls">
         <button disabled>ALERTS</button>
