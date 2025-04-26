@@ -7,7 +7,7 @@ import InputGroup from "react-bootstrap/InputGroup";
 import "../styles/SearchBar.css";
 import magnifyingGlass from "../assets/icons/magnifier.png";
 
-export default function SearchBar({ onSearch, onCoordsSearch }) {
+export default function SearchBar({ onCoordsSearch }) {
   const [query, setQuery] = useState("");
   const [suggestions, setSuggestions] = useState([]);
 
@@ -29,21 +29,15 @@ export default function SearchBar({ onSearch, onCoordsSearch }) {
   const handleSelect = (city) => {
     const { lat, lon, name, state, country } = city;
 
-    setQuery(`${name}${state ? `, ${state}` : ""}, ${country}`);
+    const fullName = `${name}${state ? `, ${state}` : ""}, ${country}`;
+    setQuery(fullName);
     setSuggestions([]);
 
-    onCoordsSearch(lat, lon);
-  };
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    onSearch(query);
-  };
-
-  const handleKeyDown = (event) => {
-    if (event.key === "Enter") {
-      handleSubmit(event);
+    if (onCoordsSearch) {
+      onCoordsSearch(lat, lon);
     }
+
+    setQuery("");
   };
 
   return (
@@ -56,9 +50,8 @@ export default function SearchBar({ onSearch, onCoordsSearch }) {
               placeholder="Search Location"
               value={query}
               onChange={(e) => setQuery(e.target.value)}
-              onKeyDown={handleKeyDown}
             />
-            <Button className="input-container-btn" onClick={handleSubmit}>
+            <Button className="input-container-btn">
               <img
                 className="search-panel-return-img"
                 src={magnifyingGlass}

@@ -10,8 +10,8 @@ export default function Header() {
         <a href="#">Maps</a>
         <a href="#">About</a>
       </nav>
-      <div className="header-buttons">
-        <button>ALERTS</button>
+      <div className="controls">
+        <button disabled>ALERTS</button>
       </div>
     </header>
   );
