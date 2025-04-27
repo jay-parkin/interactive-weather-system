@@ -34,7 +34,7 @@ export default function SearchBar({ onCoordsSearch }) {
     setSuggestions([]);
 
     if (onCoordsSearch) {
-      onCoordsSearch(lat, lon, fullName);
+      onCoordsSearch(lat, lon, { name, state, country });
     }
 
     setQuery("");

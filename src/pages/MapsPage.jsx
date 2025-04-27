@@ -1,6 +1,5 @@
-import { useState, useEffect } from "react";
-import { fetchWeatherByCoords } from "../utils/fetchWeather";
 import AddMapForm from "../components/AddMapForm";
+import { useMaps } from "../utils/useMaps";
 
 import {
   MapContainer as LeafletMap,
@@ -12,32 +11,7 @@ import "leaflet/dist/leaflet.css";
 import "../styles/MapsPage.css";
 
 export default function Maps() {
-  const [maps, setMaps] = useState(() => {
-    const savedMaps = localStorage.getItem("maps");
-    if (savedMaps) {
-      return JSON.parse(savedMaps);
-    } else {
-      return [];
-    }
-  });
-
-  const [adding, setAdding] = useState(false);
-
-  useEffect(() => {
-    localStorage.setItem("maps", JSON.stringify(maps));
-  }, [maps]);
-
-  const handleAdd = async (m) => {
-    const { weatherData } = await fetchWeatherByCoords(
-      m.coords[0],
-      m.coords[1]
-    );
-    setMaps((prev) => [...prev, { ...m, weather: weatherData }]);
-  };
-
-  const removeMap = (id) => {
-    setMaps((prev) => prev.filter((m) => m.id !== id));
-  };
+  const { maps, adding, setAdding, handleAdd, removeMap } = useMaps();
 
   return (
     <div className="maps-page">

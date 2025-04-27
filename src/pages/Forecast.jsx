@@ -10,13 +10,17 @@ export default function Forecast() {
   const [weather, setWeather] = useState(null);
   const [locationDenied, setLocationDenied] = useState(false);
 
-  const handleFetchWeather = async (lat, lon) => {
+  const handleFetchWeather = async (lat, lon, location = null) => {
     try {
       const { weatherData, forecastDays } = await fetchWeatherByCoords(
         lat,
         lon
       );
-      setWeather(weatherData);
+
+      setWeather({
+        ...weatherData,
+        location,
+      });
       setForecast(forecastDays);
       setCoords([lat, lon]);
     } catch (error) {
@@ -63,7 +67,15 @@ export default function Forecast() {
         <button disabled>Choose Location</button>
       </div>
 
-      <h2 className="forecast-city">{weather?.name || "Loading..."}</h2>
+      <h2 className="forecast-city">
+        {weather?.location
+          ? `${weather.location.name}${
+              weather.location.state ? `, ${weather.location.state}` : ""
+            }${weather.location.country ? `, ${weather.location.country}` : ""}`
+          : `${weather?.name || "Loading..."}${
+              weather?.sys?.country ? `, ${weather.sys.country}` : ""
+            }`}
+      </h2>
 
       <FullForecastsCards forecast={forecast} />
     </div>

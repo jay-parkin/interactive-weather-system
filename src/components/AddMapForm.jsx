@@ -7,8 +7,6 @@ export default function AddMapForm({ onAdd, onCancel }) {
     const id = Date.now();
     const coords = [lat, lon];
     onAdd({ id, coords, name: fullName });
-
-    console.log("Map added:", { id, coords, name: fullName });
   };
 
   return (
