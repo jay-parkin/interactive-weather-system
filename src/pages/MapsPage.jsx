@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { fetchWeatherByCoords } from "../utils/fetchWeather";
 import AddMapForm from "../components/AddMapForm";
 
@@ -12,8 +12,20 @@ import "leaflet/dist/leaflet.css";
 import "../styles/MapsPage.css";
 
 export default function Maps() {
-  const [maps, setMaps] = useState([]);
+  const [maps, setMaps] = useState(() => {
+    const savedMaps = localStorage.getItem("maps");
+    if (savedMaps) {
+      return JSON.parse(savedMaps);
+    } else {
+      return [];
+    }
+  });
+
   const [adding, setAdding] = useState(false);
+
+  useEffect(() => {
+    localStorage.setItem("maps", JSON.stringify(maps));
+  }, [maps]);
 
   const handleAdd = async (m) => {
     const { weatherData } = await fetchWeatherByCoords(

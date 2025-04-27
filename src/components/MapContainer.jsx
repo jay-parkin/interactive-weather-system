@@ -30,6 +30,24 @@ export default function MapComponent({
     }
   }, [coords]);
 
+  const handleAddToMaps = () => {
+    const id = Date.now();
+    const savedMaps = JSON.parse(localStorage.getItem("maps")) || [];
+
+    const newMap = {
+      id,
+      coords: coords,
+      name: weather?.name || "Unknown Location",
+      weather: weather,
+    };
+
+    const updatedMaps = [...savedMaps, newMap];
+
+    localStorage.setItem("maps", JSON.stringify(updatedMaps));
+
+    //Add toast
+  };
+
   return (
     <div className="map-section">
       <div className="controls">
@@ -58,11 +76,19 @@ export default function MapComponent({
           {coords && (
             <Marker position={coords} ref={markerRef}>
               <Popup>
-                <b>{weather?.name}</b>
-                <br />
-                {weather?.weather?.[0]?.description}
-                <br />
-                Temp: {weather?.main?.temp}°C
+                <div>
+                  <b>{weather?.name}</b>
+                  <br />
+                  {weather?.weather?.[0]?.description}
+                  <br />
+                  Temp: {weather?.main?.temp}°C
+                  <br />
+                  <div className="controls">
+                    <button onClick={() => handleAddToMaps()}>
+                      Add to Maps
+                    </button>
+                  </div>
+                </div>
               </Popup>
             </Marker>
           )}
