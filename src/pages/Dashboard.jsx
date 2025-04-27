@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
 
-import Header from "../components/Header";
 import SearchBar from "../components/SearchBar";
 import MapContainer from "../components/MapContainer";
 import ForecastCards from "../components/ForecastCards";

@@ -1,5 +1,5 @@
 import AddMapForm from "../components/AddMapForm";
-import { useMaps } from "../utils/useMaps";
+import useMaps from "../utils/useMaps";
 
 import {
   MapContainer as LeafletMap,
@@ -53,7 +53,12 @@ export default function Maps() {
 
             <div className="map-card-footer">
               <div>
-                <p className="map-name">{m.name}</p>
+                <p className="map-name">
+                  {`${m.name.name}${m.name.state ? `, ${m.name.state}` : ""}${
+                    m.name.country ? `, ${m.name.country}` : ""
+                  }`}
+                </p>
+
                 {m.weather && (
                   <p className="weather-details">
                     {Math.round(m.weather.main.temp)}°C —{" "}
