@@ -9,7 +9,7 @@ export default function Header() {
       <nav className="nav-links">
         <Link to="/">Dashboard</Link>
         <Link to="/forecast">Forecast</Link>
-        <Link to="#">Maps</Link>
+        <Link to="/maps">Maps</Link>
         <Link to="#">About</Link>
       </nav>
       <div className="controls">

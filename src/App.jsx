@@ -5,6 +5,7 @@ import "./App.css";
 import Dashboard from "./pages/Dashboard";
 import Forecast from "./pages/Forecast";
 import Header from "./components/Header";
+import Maps from "./pages/MapsPage";
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Dashboard />} />
           <Route path="/forecast" element={<Forecast />} />
+          <Route path="/maps" element={<Maps />} />
         </Routes>
 
         {/* This is our custom footer!
