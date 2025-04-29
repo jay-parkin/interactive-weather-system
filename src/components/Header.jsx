@@ -13,6 +13,7 @@ export default function Header() {
         <Link to="/about">About</Link>
       </nav>
       <div className="controls">
+        <button disabled>Log in</button>
         <button disabled>ALERTS</button>
       </div>
     </header>

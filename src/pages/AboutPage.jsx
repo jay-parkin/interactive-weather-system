@@ -8,8 +8,17 @@ export default function About() {
       <div className="about-content">
         <div className="about-section">
           <h2>Terms of Service</h2>
-          <p>Stay in loop with our company news. Sign up to our newsletter and receive the freshest info.</p>
-          <button className="about-button">View More</button>
+          <p>
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Omnis dicta
+            soluta voluptatum dolorum natus, ad numquam, veniam aut adipisci
+            modi vero placeat doloremque fuga a, temporibus explicabo asperiores
+            laboriosam enim.
+          </p>
+          <div className="controls">
+            <button disabled className="about-button">
+              View More
+            </button>
+          </div>
         </div>
 
         <div className="about-image">
@@ -19,8 +28,17 @@ export default function About() {
 
         <div className="about-section">
           <h2>Privacy Policy</h2>
-          <p>Stay in loop with our company news. Sign up to our newsletter and receive the freshest info.</p>
-          <button className="about-button">View More</button>
+          <p>
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Incidunt
+            qui, assumenda nihil numquam minus ut consectetur nostrum, aliquam,
+            eaque suscipit nam vitae dolores velit. Consectetur quae vero iusto
+            nulla numquam!
+          </p>
+          <div className="controls">
+            <button disabled className="about-button">
+              View More
+            </button>
+          </div>
         </div>
       </div>
     </div>
