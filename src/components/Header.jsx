@@ -10,7 +10,7 @@ export default function Header() {
         <Link to="/">Dashboard</Link>
         <Link to="/forecast">Forecast</Link>
         <Link to="/maps">Maps</Link>
-        <Link to="#">About</Link>
+        <Link to="/about">About</Link>
       </nav>
       <div className="controls">
         <button disabled>ALERTS</button>

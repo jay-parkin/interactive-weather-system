@@ -6,6 +6,7 @@ import Dashboard from "./pages/Dashboard";
 import Forecast from "./pages/Forecast";
 import Header from "./components/Header";
 import Maps from "./pages/MapsPage";
+import About from "./pages/AboutPage";
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
           <Route path="/" element={<Dashboard />} />
           <Route path="/forecast" element={<Forecast />} />
           <Route path="/maps" element={<Maps />} />
+          <Route path="/about" element={<About />} />
         </Routes>
 
         {/* This is our custom footer!
