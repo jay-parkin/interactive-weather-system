@@ -3,6 +3,7 @@ import SearchBar from "../components/SearchBar";
 import FullForecastsCards from "../components/FullForecastsCards";
 import { fetchWeatherByCoords } from "../utils/fetchWeather";
 import "../styles/ForecastPage.css";
+import ForecastGraph from "../components/ForecastGraph";
 
 export default function Forecast() {
   const [coords, setCoords] = useState([-33.8688, 151.2093]);
@@ -23,13 +24,27 @@ export default function Forecast() {
       });
       setForecast(forecastDays);
       setCoords([lat, lon]);
+
+      localStorage.setItem(
+        "defaultLocation",
+        JSON.stringify({
+          coords: [lat, lon],
+          location,
+        })
+      );
     } catch (error) {
       console.error("Failed to fetch weather:", error);
     }
   };
 
   useEffect(() => {
-    handleFetchWeather(coords[0], coords[1]);
+    const saved = localStorage.getItem("defaultLocation");
+    if (saved) {
+      const { coords, location } = JSON.parse(saved);
+      handleFetchWeather(coords[0], coords[1], location);
+    } else {
+      handleFetchWeather(coords[0], coords[1]);
+    }
   }, []);
 
   const handleUseMyLocation = () => {
@@ -78,6 +93,7 @@ export default function Forecast() {
       </h2>
 
       <FullForecastsCards forecast={forecast} />
+      <ForecastGraph forecast={forecast} />
     </div>
   );
 }
