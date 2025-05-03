@@ -73,6 +73,12 @@ export default function MapComponent({
     }
   };
 
+  function getWindDirection(deg) {
+    const directions = ["N", "NE", "E", "SE", "S", "SW", "W", "NW"];
+    const index = Math.round(deg / 45) % 8;
+    return directions[index];
+  }
+
   return (
     <div className="map-section">
       <div className="controls">
@@ -106,13 +112,31 @@ export default function MapComponent({
           <ChangeMapView coords={coords} />
           {coords && (
             <Marker position={coords} ref={markerRef}>
+              {/* tempDay: Math.round(entry.temp.day),
+              tempMin: Math.round(entry.temp.min),
+              tempMax: Math.round(entry.temp.max),
+              feelsLike: Math.round(entry.feels_like.day),
+              humidity: entry.humidity,
+              rainChance: Math.round((entry.pop || 0) * 100),
+              rainVolume: entry.rain || 0,
+              windSpeed: entry.speed,
+              windDeg: entry.deg,
+              cloudiness: entry.clouds,
+              description: entry.weather[0].description,
+              icon: entry.weather[0].icon, */}
               <Popup>
                 <div>
                   <b>{weather?.name}</b>
                   <br />
-                  {weather?.weather?.[0]?.description}
+                  Description: {weather?.weather?.[0]?.description}
                   <br />
                   Temp: {weather?.main?.temp}°C
+                  <br />
+                  Feels like: {weather?.main?.feels_like}°C
+                  <br />
+                  Wind: {weather?.wind?.speed} m/s
+                  <br />
+                  Humidity: {weather?.main?.humidity}%
                   <br />
                   <div className="controls">
                     <button onClick={handleAddToMaps}>Add to Maps</button>

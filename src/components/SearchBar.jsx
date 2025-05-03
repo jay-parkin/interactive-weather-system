@@ -7,6 +7,8 @@ import InputGroup from "react-bootstrap/InputGroup";
 import "../styles/SearchBar.css";
 import magnifyingGlass from "../assets/icons/magnifier.png";
 
+import Toast from "./Toast";
+
 export default function SearchBar({ onCoordsSearch }) {
   const [query, setQuery] = useState("");
   const [suggestions, setSuggestions] = useState([]);
@@ -15,11 +17,29 @@ export default function SearchBar({ onCoordsSearch }) {
     const fetchSuggestions = async () => {
       if (query.length < 2) return setSuggestions([]);
       const apiKey = import.meta.env.VITE_WEATHER_API_KEY;
-      const res = await fetch(
-        `https://api.openweathermap.org/geo/1.0/direct?q=${query}&limit=5&appid=${apiKey}`
-      );
-      const data = await res.json();
-      setSuggestions(data);
+
+      try {
+        const res = await fetch(
+          `https://api.openweathermap.org/geo/1.0/direct?q=${query}&limit=5&appid=${apiKey}`
+        );
+        const data = await res.json();
+
+        if (data.length === 0) {
+          Toast().fire({
+            icon: "error",
+            title: "Location not found. Please try again.",
+          });
+        }
+
+        setSuggestions(data);
+      } catch (error) {
+        console.error("Suggestion fetch failed:", error);
+
+        Toast().fire({
+          icon: "error",
+          title: "Unable to fetch suggestions. Please try again later.",
+        });
+      }
     };
 
     const timeout = setTimeout(fetchSuggestions, 400);

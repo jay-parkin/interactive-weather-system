@@ -23,13 +23,27 @@ const Dashboard = () => {
       setWeather(weatherData);
       setForecast(forecastDays);
       setCoords([lat, lon]);
+
+      localStorage.setItem(
+        "defaultLocation",
+        JSON.stringify({
+          coords: [lat, lon],
+          location,
+        })
+      );
     } catch (error) {
       console.error("Failed to fetch weather data:", error);
     }
   };
 
   useEffect(() => {
-    handleFetchWeather(coords[0], coords[1]);
+    const saved = localStorage.getItem("defaultLocation");
+    if (saved) {
+      const { coords, location } = JSON.parse(saved);
+      handleFetchWeather(coords[0], coords[1], location);
+    } else {
+      handleFetchWeather(coords[0], coords[1]);
+    }
   }, []);
 
   const handleUseMyLocation = () => {
