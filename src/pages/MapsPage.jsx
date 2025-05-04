@@ -1,5 +1,9 @@
+import { useState } from "react";
 import AddMapForm from "../components/AddMapForm";
 import useMaps from "../utils/useMaps";
+
+import PopupForecast from "../components/PopupForecast";
+import "../styles/PopupForecast.css";
 
 import {
   MapContainer as LeafletMap,
@@ -12,6 +16,7 @@ import "../styles/MapsPage.css";
 
 export default function Maps() {
   const { maps, adding, setAdding, handleAdd, removeMap } = useMaps();
+  const [activeForecast, setActiveForecast] = useState(null);
 
   return (
     <div className="maps-page">
@@ -45,9 +50,10 @@ export default function Maps() {
                 style={{ height: "200px", width: "100%" }}
               >
                 <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
-                <Marker position={m.coords}>
-                  <Popup>{m.name}</Popup>
-                </Marker>
+                <Marker
+                  position={m.coords}
+                  eventHandlers={{ click: () => setActiveForecast(m.coords) }}
+                />
               </LeafletMap>
             </div>
 
@@ -73,6 +79,19 @@ export default function Maps() {
           </div>
         ))}
       </div>
+      {activeForecast && (
+        <div className="forecast-overlay">
+          <div className="forecast-modal">
+            <button
+              className="close-btn"
+              onClick={() => setActiveForecast(null)}
+            >
+              ×
+            </button>
+            <PopupForecast coords={activeForecast} />
+          </div>
+        </div>
+      )}
     </div>
   );
 }

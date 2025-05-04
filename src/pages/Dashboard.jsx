@@ -14,7 +14,7 @@ const Dashboard = () => {
   const [forecast, setForecast] = useState([]);
   const [locationDenied, setLocationDenied] = useState(false);
 
-  const handleFetchWeather = async (lat, lon) => {
+  const handleFetchWeather = async (lat, lon, location = null) => {
     try {
       const { weatherData, forecastDays } = await fetchWeatherByCoords(
         lat,
@@ -28,7 +28,11 @@ const Dashboard = () => {
         "defaultLocation",
         JSON.stringify({
           coords: [lat, lon],
-          location,
+          location: location || {
+            name: weatherData.name,
+            state: null,
+            country: weatherData.sys?.country || "",
+          },
         })
       );
     } catch (error) {

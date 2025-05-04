@@ -1,5 +1,7 @@
 import getWeatherIcon from "../utils/getWeatherIcon";
 
+import "../styles/FullForecastCards.css";
+
 export default function ForecastCards({ forecast }) {
   if (!forecast || forecast.length === 0) return null;
 

@@ -53,6 +53,15 @@ export default function SearchBar({ onCoordsSearch }) {
     setQuery(fullName);
     setSuggestions([]);
 
+    localStorage.setItem(
+      "defaultLocation",
+      JSON.stringify({
+        coords: [lat, lon],
+        location: { name, state, country },
+        timestamp: Date.now(),
+      })
+    );
+
     if (onCoordsSearch) {
       onCoordsSearch(lat, lon, { name, state, country });
     }

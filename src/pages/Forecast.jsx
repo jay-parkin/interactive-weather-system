@@ -18,20 +18,19 @@ export default function Forecast() {
         lon
       );
 
+      const fallbackLocation = {
+        name: weatherData.name,
+        state: null,
+        country: weatherData.sys?.country || "",
+      };
+
       setWeather({
         ...weatherData,
-        location,
+        location: location || fallbackLocation,
       });
+
       setForecast(forecastDays);
       setCoords([lat, lon]);
-
-      localStorage.setItem(
-        "defaultLocation",
-        JSON.stringify({
-          coords: [lat, lon],
-          location,
-        })
-      );
     } catch (error) {
       console.error("Failed to fetch weather:", error);
     }
