@@ -125,7 +125,8 @@ export default function MapComponent({
               description: entry.weather[0].description,
               icon: entry.weather[0].icon, */}
               <Popup>
-                <div>
+                <div className="popup-content">
+                  <h3>Weather Details</h3>
                   <b>{weather?.name}</b>
                   <br />
                   Description: {weather?.weather?.[0]?.description}
