@@ -1,12 +1,9 @@
 .search-panel {
   display: flex;
-  flex-wrap: wrap;
-  flex-direction: row;
-  align-items: center;
   justify-content: center;
-  margin-left: 20px;
-  margin: 20px;
-  margin-bottom: 60px;
+  padding: 20px;
+  box-sizing: border-box;
+  width: 100%;
 }
 
 .search-panel-img {
@@ -99,4 +96,31 @@
 
 .autocomplete-dropdown li:hover {
   background-color: #f0f0f0;
+}
+
+@media (max-width: 480px) {
+  .search-panel {
+    padding: 0 0.5rem;
+  }
+
+  .search-panel {
+    width: 100%;
+    padding: 0 1rem;
+    box-sizing: border-box;
+  }
+
+  .search-panel-container {
+    max-width: 100%;
+    width: 100%;
+  }
+
+  .input-container-field {
+    width: 100%;
+    display: flex;
+  }
+
+  .search-form-input {
+    flex-grow: 1;
+    min-width: 0;
+  }
 }

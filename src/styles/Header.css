@@ -1,4 +1,8 @@
 .header-container {
+  width: 100%;
+  box-sizing: border-box;
+  position: relative;
+
   display: flex;
   flex-wrap: wrap;
   flex-direction: row;
@@ -30,4 +34,43 @@
   color: white;
   border: none;
   border-radius: 5px;
+}
+
+.menu-toggle {
+  display: none;
+  font-size: 1.8rem;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+@media (max-width: 768px) {
+  .menu-toggle {
+    display: block;
+  }
+
+  .nav-links {
+    display: none;
+    flex-direction: column;
+    width: 100%;
+    background-color: white;
+    position: absolute;
+    top: 80px;
+    left: 0;
+    padding: 1rem;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+  }
+
+  .nav-links.open {
+    display: flex;
+  }
+
+  .nav-links a {
+    margin: 0.5rem 0;
+  }
+
+  .header-controls {
+    display: none;
+  }
 }
